@@ -1,8 +1,4 @@
-let item1=0;
-let item2=0;
-let item3=0;
-let item4=0;
-let item5=0;
+let carrito=[];
 let aux=false;
 let opcion=0;
 let suma=0;
@@ -15,21 +11,9 @@ do{
         case 1:
             sumaAux= Number(prompt(" Ingrese el valor del producto: "));
             if(sumaAux>0){
-                if(item1 == 0){
-                    item1= sumaAux;
-                    suma= suma+ sumaAux;
-                }else if(item2 == 0){
-                    item2= sumaAux;
-                    suma= suma+ sumaAux;}
-                else if(item3 == 0){
-                        item3= sumaAux;
-                        suma= suma+ sumaAux;}
-                else if(item4 == 0){
-                        item4= sumaAux;
-                        suma= suma+ sumaAux;}
-                else if(item5 == 0){
-                        item5= sumaAux;
-                        suma= suma+ sumaAux;}
+                if(carrito.length<5){
+                    carrito.push(sumaAux)
+                }
                 else {
                     alert(" No puede agregar mas items al carrito, Quite uno para poder agregar otro. Se lo redigira al menu principal precione ACEPTAR para continuar");
                 }
@@ -40,27 +24,22 @@ do{
             break;
 
         case 2:
-            opcion=Number(prompt("Seleccione el item q desea quitar: 1- "+item1 +". 2- "+item2+". 3-"+item3+". 4-"+item4+". 5-"+item5+". 6-volver al menu."))
+            opcion=Number(prompt("Seleccione el item q desea quitar: 1- "+carrito[0] +". 2- "+carrito[1]+". 3-"+carrito[2]+". 4-"+carrito[3]+". 5-"+carrito[4]+". 6-volver al menu."))
             switch(opcion){
                 case 1:
-                    suma= suma-item1;
-                    item1=0;
+                    eliminarDelCarrito(0);
                     break;
                 case 2:
-                    suma= suma-item2;
-                    item2=0;
+                    eliminarDelCarrito(1);
                     break;
                 case 3:
-                    suma= suma-item3;
-                    item3=0;
+                    eliminarDelCarrito(2);
                     break;
                 case 4:
-                    suma= suma-item4;
-                    item4=0;
+                    eliminarDelCarrito(3);
                     break;
                 case 5:
-                    suma= suma-item5;
-                    item5=0;
+                    eliminarDelCarrito(4);
                     break;
                 case 6:
                     break;
@@ -70,10 +49,11 @@ do{
             break;
 
         case 3:
-            alert("Los item son: 1- "+item1 +". 2- "+item2+". 3-"+item3+". 4-"+item4+". 5-"+item5+". Precione ACEPTAR para volver al menu principal.")
+            mostrarCarrito();
             break;
 
         case 4:
+            suma=sumarCarrito();
             if(suma>=5000){
                 opcion=Number(prompt( "El total de la compra es "+suma+" Precione 1 Para confirmar o 2 para volver al menu principal"));
                 switch(opcion){
@@ -109,3 +89,17 @@ do{
 
 }while( aux==false)
 
+
+function mostrarCarrito(){
+    alert("Los item son: 1- "+carrito[0] +". 2- "+carrito[1]+". 3-"+carrito[2]+". 4-"+carrito[3]+". 5-"+carrito[4]+". Precione ACEPTAR para volver al menu principal.");
+}
+function eliminarDelCarrito(a){
+    carrito.splice(a,1);
+}
+function sumarCarrito(){
+    let sumatotal=0;
+    carrito.forEach(e => {
+        sumatotal+=e;
+    })
+    return sumatotal;
+}
